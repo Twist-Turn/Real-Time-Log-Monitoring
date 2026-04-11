@@ -1,0 +1,16 @@
+.claude
+
+# macOS
+.DS_Store
+
+# Build artifacts
+/build/
+
+# Runtime data and logs
+/data/
+/alerts.log
+/stats.json
+
+# Python cache
+__pycache__/
+*.pyc

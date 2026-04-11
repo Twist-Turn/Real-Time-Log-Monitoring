@@ -1,0 +1,29 @@
+[
+  {
+    "id": "rule_001",
+    "app": "myapp",
+    "level": "ERROR",
+    "threshold": 5,
+    "window_seconds": 60,
+    "notify_url": "https://hooks.slack.com/services/REPLACE_WITH_REAL_WEBHOOK",
+    "cooldown_seconds": 300
+  },
+  {
+    "id": "rule_002",
+    "app": "payment-api",
+    "level": "ERROR",
+    "threshold": 10,
+    "window_seconds": 120,
+    "notify_url": "https://discord.com/api/webhooks/REPLACE_WITH_REAL_WEBHOOK",
+    "cooldown_seconds": 600
+  },
+  {
+    "id": "rule_003",
+    "app": "auth-service",
+    "level": "CRITICAL",
+    "threshold": 1,
+    "window_seconds": 30,
+    "notify_url": "https://hooks.slack.com/services/REPLACE_WITH_REAL_WEBHOOK",
+    "cooldown_seconds": 60
+  }
+]

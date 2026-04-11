@@ -1,0 +1,50 @@
+{
+  "watch_files": [
+    "/tmp/test_logs/app.log",
+    "/tmp/test_logs/system.log",
+    "/tmp/test_logs/access.log"
+  ],
+  "network": {
+    "enabled": true,
+    "tcp_port": 5514,
+    "http_port": 8080,
+    "http_port_v2": 9090,
+    "max_connections": 100,
+    "api_key": "changeme",
+    "http_v2_threads": 10
+  },
+  "codebase_index": {
+    "enabled": true,
+    "path": "./scripts/sample_codebase",
+    "extensions": [".cpp", ".hpp", ".py", ".java", ".js", ".ts", ".go"],
+    "max_results": 3
+  },
+  "rules": [
+    {
+      "name": "critical_errors",
+      "pattern": "CRITICAL|segfault|OOM killer|SIGKILL|kernel panic",
+      "severity": "CRITICAL"
+    },
+    {
+      "name": "errors",
+      "pattern": "ERROR|Exception|failed|Traceback|FATAL",
+      "severity": "ERROR"
+    },
+    {
+      "name": "warnings",
+      "pattern": "WARN|warning|deprecated|timeout|retry",
+      "severity": "WARN"
+    },
+    {
+      "name": "info_patterns",
+      "pattern": "INFO|started|completed|listening|connected",
+      "severity": "INFO"
+    }
+  ],
+  "jwt_secret": "REPLACE-WITH-RANDOM-64-BYTE-HEX-IN-PRODUCTION",
+  "default_project_id": "",
+  "dashboard_refresh_ms": 200,
+  "stats_interval_seconds": 5,
+  "thread_pool_size": 4,
+  "ring_buffer_size": 65536
+}

@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  logmonitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: logmonitor:latest
+    container_name: logmonitor
+    ports:
+      - "5514:5514"   # TCP log ingestion
+      - "9090:9090"   # HTTP API
+    volumes:
+      # Persistent TSDB data (survives container restarts)
+      - ./data:/app/data
+      # Hot-reload: edit alerts.json without restarting the container
+      - ./config/alerts.json:/app/config/alerts.json
+      # Optional: mount local log files to be watched
+      - ./logs:/tmp/watched_logs
+    environment:
+      - API_KEY=${API_KEY:-changeme}
+      - MAX_MEMORY_MB=${MAX_MEMORY_MB:-512}
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - "CMD"
+        - "curl"
+        - "-f"
+        - "-H"
+        - "X-API-Key: ${API_KEY:-changeme}"
+        - "http://localhost:9090/health"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # Run without a TTY so the headless path is used (no ncurses)
+    tty: false
+    stdin_open: false
